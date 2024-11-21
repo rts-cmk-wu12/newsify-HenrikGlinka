@@ -15,7 +15,7 @@ const config = {
 
     output: {
         clean: true,
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         filename: 'scripts/[name].bundle.js',
         assetModuleFilename: 'assets/[hash][ext]',
     },
