@@ -8,9 +8,17 @@ const { css } = require('webpack');
 const isProduction = process.env.NODE_ENV == 'production';
 const stylesHandler = MiniCssExtractPlugin.loader;
 
+const commonHtmlConfig = {
+    meta: {
+      viewport: 'width=device-width, initial-scale=1'
+    },
+  };
+
 const config = {
     entry: {
+        layout: './src/style/layout.scss',
         index: './src/pages/index/index.js',
+        login: './src/pages/login/login.js',
     },
 
     output: {
@@ -23,20 +31,22 @@ const config = {
         open: true,
         host: 'localhost',
     },
+
     plugins: [
         new HtmlWebpackPlugin({
-            meta: {
-                viewport: 'width=device-width, initial-scale=1',
-            },
+            ...commonHtmlConfig,
             chunks: ['index']
         }),
 
-        new MiniCssExtractPlugin({
-            filename: 'styles/[name].css',
+        new HtmlWebpackPlugin({
+            ...commonHtmlConfig,
+            filename: 'login.html',
+            chunks: ['login']
         }),
 
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css',
+        }),
     ],
     module: {
         rules: [
